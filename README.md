@@ -4,7 +4,7 @@
 Sistema de gestió d'esdeveniments en streaming amb autenticació d'usuaris, perfils personalitzats i funcionalitats de seguiment entre usuaris.
 
 ## 🧱 Stack Principal
-- **Backend**: Django 5.0.0
+- **Backend**: Django
 - **Base de dades**: MongoDB amb Djongo
 - **Processament d'imatges**: Pillow
 
@@ -25,8 +25,8 @@ Sistema de gestió d'esdeveniments en streaming amb autenticació d'usuaris, per
 
 
 ## ✅ Requisits previs
-- Python 3.10+
-- MongoDB local (port 27017)
+- Python 3.11+
+- MongoDB local
 - Git
 
 ## 🚀 Instal·lació ràpida
