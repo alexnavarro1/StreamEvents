@@ -98,5 +98,4 @@ python manage.py startapp app_name
 ```bash
 python manage.py loaddata users/fixtures/*.json
 ```
-## 🌱 Seeds (exemple d'script)
 ...

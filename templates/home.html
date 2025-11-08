@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Inici - StreamEvents{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Benvingut a StreamEvents</h1>
+    <p class="lead">La teva plataforma per gestionar esdeveniments.</p>
+    <hr class="my-4">
+    <p>Registra't o inicia sessió per començar.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'users:register' %}" role="button">Registrar-se</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'users:login' %}" role="button">Iniciar Sessió</a>
+</div>
+{% endblock %}
