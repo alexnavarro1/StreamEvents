@@ -60,37 +60,33 @@ def register_view(request):
 def login_view(request):
     """Vista d'inici de sessió"""
     
-    # Redirigir usuaris ja autenticats (evitar doble login)
+    # Redirigir usuaris ja autenticats
     if request.user.is_authenticated:
         messages.info(request, 'Ja tens una sessió iniciada.')
         return redirect('users:profile')
     
-    # Comprovar si s'ha enviat el formulari de login
     if request.method == 'POST':
-        # Crear formulari d'autenticació amb les dades enviades
         form = CustomAuthenticationForm(request, data=request.POST)
-        
-        # Validar el formulari
         if form.is_valid():
-            # Obtenir l'usuari autenticat
+            # IMPORTANTE: Usar get_user() que ahora funcionará correctamente
             user = form.get_user()
-            # Iniciar sessió de l'usuari
-            login(request, user)
             
-            # Missatge de benvinguda
-            messages.success(request, f'Benvingut/da de nou, {user.first_name}!')
-            
-            # Redirigir a la pàgina que intentava accedir o al perfil per defecte
-            next_url = request.GET.get('next', 'users:profile')
-            return redirect(next_url)
+            # Verificación adicional de seguridad
+            if user is not None and user.is_authenticated:
+                login(request, user)
+                messages.success(request, f'Benvingut/da de nou, {user.first_name or user.username}!')
+                
+                # Redirigir a la pàgina que intentava accedir o al perfil
+                next_url = request.GET.get('next', 'users:profile')
+                return redirect(next_url)
+            else:
+                messages.error(request, 'Error en l\'autenticació. Torna-ho a provar.')
         else:
-            # Credencials incorrectes
+            # Mostrar errors específics del formulari
             messages.error(request, 'Email/usuari o contrasenya incorrectes.')
     else:
-        # Mostrar formulari buit (mètode GET)
         form = CustomAuthenticationForm()
     
-    # Renderitzar la plantilla de login amb el formulari
     return render(request, 'registration/login.html', {
         'form': form,
         'title': 'Iniciar sessió'
