@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold">El Meu Tauler d'Esdeveniments</h2>
+  <a href="{% url 'events:event_create' %}" class="btn btn-primary">
+    <i class="bi bi-plus-circle"></i> Nou Esdeveniment
+  </a>
+</div>
+
+<div class="card shadow">
+  <div class="card-body">
+    {% if events %}
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Esdeveniment</th>
+            <th>Estat</th>
+            <th>Data</th>
+            <th>Categoria</th>
+            <th>Accions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                {% if event.thumbnail %}
+                <img src="{{ event.thumbnail.url }}" class="rounded me-3"
+                  style="width: 50px; height: 50px; object-fit: cover;">
+                {% else %}
+                <div class="bg-secondary rounded me-3 d-flex align-items-center justify-content-center"
+                  style="width: 50px; height: 50px;">
+                  <i class="bi bi-image text-white"></i>
+                </div>
+                {% endif %}
+                <div>
+                  <a href="{{ event.get_absolute_url }}" class="fw-bold text-decoration-none text-dark">
+                    {{ event.title }}
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              {% if event.status == 'live' %}
+              <span class="badge bg-danger">EN DIRECTE</span>
+              {% elif event.status == 'scheduled' %}
+              <span class="badge bg-info text-dark">Programat</span>
+              {% elif event.status == 'finished' %}
+              <span class="badge bg-secondary">Finalitzat</span>
+              {% else %}
+              <span class="badge bg-dark">Cancel·lat</span>
+              {% endif %}
+            </td>
+            <td>{{ event.scheduled_date|date:"d M Y, H:i" }}</td>
+            <td>{{ event.get_category_display }}</td>
+            <td>
+              <div class="btn-group btn-group-sm">
+                <a href="{{ event.get_absolute_url }}" class="btn btn-outline-primary" title="Veure">
+                  <i class="bi bi-eye"></i>
+                </a>
+                <a href="{% url 'events:event_update' event.id %}" class="btn btn-outline-warning" title="Editar">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <a href="{% url 'events:event_delete' event.id %}" class="btn btn-outline-danger" title="Eliminar">
+                  <i class="bi bi-trash"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <div class="mb-3">
+        <i class="bi bi-journal-x display-1 text-muted"></i>
+      </div>
+      <h3>Encara no has creat cap esdeveniment</h3>
+      <p class="text-muted">Comença a compartir el teu contingut amb el món!</p>
+      <a href="{% url 'events:event_create' %}" class="btn btn-primary mt-2">Crear el meu primer esdeveniment</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

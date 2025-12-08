@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-0">Explora Esdeveniments</h2>
+    <p class="text-muted">Descobreix el millor contingut en streaming</p>
+  </div>
+  <a href="{% url 'events:event_create' %}" class="btn btn-success btn-lg shadow-sm">
+    <i class="bi bi-plus-lg"></i> Crear Esdeveniment
+  </a>
+</div>
+
+<div class="card shadow-sm mb-4 bg-light border-0">
+  <div class="card-body">
+    <form method="get" class="row g-3 align-items-end">
+      {% include 'events/includes/event_filters.html' %}
+    </form>
+  </div>
+</div>
+
+<div class="row g-4">
+  {% for event in events %}
+  <div class="col-md-6 col-lg-4 col-xl-3">
+    {% include 'events/includes/event_card.html' with event=event %}
+  </div>
+  {% empty %}
+  <div class="col-12 text-center py-5">
+    <div class="text-muted mb-3">
+      <i class="bi bi-calendar-x display-1"></i>
+    </div>
+    <h3>No s'han trobat esdeveniments</h3>
+    <p>Prova amb altres filtres o crea el teu propi esdeveniment.</p>
+  </div>
+  {% endfor %}
+</div>
+
+{% if events.has_other_pages %}
+<nav class="mt-5" aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if events.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ events.previous_page_number }}&{{ request.GET.urlencode }}"
+        aria-label="Previous">Anterior</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+    {% endif %}
+
+    {% for i in events.paginator.page_range %}
+    {% if events.number == i %}
+    <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{ i }}&{{ request.GET.urlencode }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+
+    {% if events.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ events.next_page_number }}&{{ request.GET.urlencode }}"
+        aria-label="Next">Següent</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Següent</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<div class="row g-2 mb-3">
+
+  <div class="col-md-3">
+    <input type="text" name="search" value="{{ request.GET.search }}" class="form-control"
+           placeholder="Cerca...">
+  </div>
+
+  <div class="col-md-2">
+    <select name="category" class="form-select">
+      {% for value, label in form.category.field.choices %}
+        <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>
+          {{ label }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <select name="status" class="form-select">
+      {% for value, label in form.status.field.choices %}
+        <option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>
+          {{ label }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <input type="date" name="date_from" class="form-control" value="{{ request.GET.date_from }}">
+  </div>
+
+  <div class="col-md-2">
+    <input type="date" name="date_to" class="form-control" value="{{ request.GET.date_to }}">
+  </div>
+
+  <div class="col-md-1">
+    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+  </div>
+
+</div>

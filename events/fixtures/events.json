@@ -1,0 +1,257 @@
+[
+  {
+    "model": "events.event",
+    "pk": 1,
+    "fields": {
+      "title": "Torneo de Fortnite",
+      "description": "Compite en nuestro torneo de Fortnite con premios.",
+      "creator": 1,
+      "category": "gaming",
+      "scheduled_date": "2025-12-05T18:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 200,
+      "is_featured": true,
+      "tags": "Fortnite,Competición,Esports",
+      "stream_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 2,
+    "fields": {
+      "title": "Concierto de Jazz en Vivo",
+      "description": "Disfruta de jazz en directo con artistas locales.",
+      "creator": 2,
+      "category": "music",
+      "scheduled_date": "2025-12-10T20:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 150,
+      "is_featured": false,
+      "tags": "Jazz,Concierto,Live",
+      "stream_url": "https://www.twitch.tv/jazzchannel"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 3,
+    "fields": {
+      "title": "Charla sobre IA",
+      "description": "Introducción a la Inteligencia Artificial y sus aplicaciones.",
+      "creator": 3,
+      "category": "talk",
+      "scheduled_date": "2025-11-25T17:00:00Z",
+      "status": "finished",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 100,
+      "is_featured": false,
+      "tags": "IA,Tecnología,Charla",
+      "stream_url": "https://www.youtube.com/watch?v=3fumBcKC6RE"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 4,
+    "fields": {
+      "title": "Curso de Python Básico",
+      "description": "Aprende Python desde cero en este curso online.",
+      "creator": 1,
+      "category": "education",
+      "scheduled_date": "2025-12-01T15:00:00Z",
+      "status": "live",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 300,
+      "is_featured": true,
+      "tags": "Python,Curso,Educación",
+      "stream_url": "https://www.youtube.com/watch?v=rfscVS0vtbw"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 5,
+    "fields": {
+      "title": "Partido de Fútbol Local",
+      "description": "Sigue el partido de la liga local en vivo.",
+      "creator": 2,
+      "category": "sports",
+      "scheduled_date": "2025-12-02T19:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 500,
+      "is_featured": false,
+      "tags": "Fútbol,Deportes,Live",
+      "stream_url": "https://www.twitch.tv/sportschannel"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 6,
+    "fields": {
+      "title": "Stand-up Comedy",
+      "description": "Ríe con nuestro show de comedia en directo.",
+      "creator": 3,
+      "category": "entertainment",
+      "scheduled_date": "2025-12-08T21:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 100,
+      "is_featured": false,
+      "tags": "Comedia,Show,Live",
+      "stream_url": "https://www.youtube.com/watch?v=V-_O7nl0Ii0"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 7,
+    "fields": {
+      "title": "Conferencia Tecnología 2025",
+      "description": "Descubre las últimas tendencias en tecnología.",
+      "creator": 1,
+      "category": "technology",
+      "scheduled_date": "2025-12-12T16:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 250,
+      "is_featured": true,
+      "tags": "Tech,Innovación,Conferencia",
+      "stream_url": "https://www.youtube.com/watch?v=5qap5aO4i9A"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 8,
+    "fields": {
+      "title": "Taller de Pintura",
+      "description": "Aprende técnicas de pintura con artistas locales.",
+      "creator": 2,
+      "category": "art",
+      "scheduled_date": "2025-12-03T14:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 50,
+      "is_featured": false,
+      "tags": "Arte,Pintura,Taller",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 9,
+    "fields": {
+      "title": "Meditación Guiada",
+      "description": "Sesión de meditación y relajación en vivo.",
+      "creator": 3,
+      "category": "education",
+      "scheduled_date": "2025-12-04T07:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 120,
+      "is_featured": false,
+      "tags": "Meditación,Salud,Bienestar",
+      "stream_url": "https://www.twitch.tv/meditationlive"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 10,
+    "fields": {
+      "title": "Partido de Baloncesto",
+      "description": "Liga nacional de baloncesto, sigue el partido en directo.",
+      "creator": 1,
+      "category": "sports",
+      "scheduled_date": "2025-12-06T18:30:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 400,
+      "is_featured": false,
+      "tags": "Baloncesto,Deportes,Live",
+      "stream_url": "https://www.youtube.com/watch?v=QH2-TGUlwu4"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 11,
+    "fields": {
+      "title": "Evento de E-sports CS:GO",
+      "description": "Competición de CS:GO online, participa y disfruta.",
+      "creator": 2,
+      "category": "gaming",
+      "scheduled_date": "2025-12-07T20:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 300,
+      "is_featured": true,
+      "tags": "CSGO,Esports,Competición",
+      "stream_url": "https://www.twitch.tv/csgostream"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 12,
+    "fields": {
+      "title": "Clínica de Fotografía",
+      "description": "Aprende fotografía básica y avanzada online.",
+      "creator": 3,
+      "category": "art",
+      "scheduled_date": "2025-12-09T15:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 80,
+      "is_featured": false,
+      "tags": "Fotografía,Arte,Taller",
+      "stream_url": ""
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 13,
+    "fields": {
+      "title": "Podcast en Directo",
+      "description": "Debate sobre tecnología y ciencia.",
+      "creator": 1,
+      "category": "talk",
+      "scheduled_date": "2025-12-11T19:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 150,
+      "is_featured": false,
+      "tags": "Podcast,Tech,Debate",
+      "stream_url": "https://www.youtube.com/watch?v=kJQP7kiw5Fk"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 14,
+    "fields": {
+      "title": "Clases de Yoga",
+      "description": "Yoga online para todos los niveles.",
+      "creator": 2,
+      "category": "education",
+      "scheduled_date": "2025-12-13T08:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 100,
+      "is_featured": false,
+      "tags": "Yoga,Salud,Bienestar",
+      "stream_url": "https://www.twitch.tv/yogalive"
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 15,
+    "fields": {
+      "title": "Espectáculo de Magia",
+      "description": "Show de magia online para toda la familia.",
+      "creator": 3,
+      "category": "entertainment",
+      "scheduled_date": "2025-12-14T20:00:00Z",
+      "status": "scheduled",
+      "thumbnail": "events/default_thumbnail.jpg",
+      "max_viewers": 120,
+      "is_featured": true,
+      "tags": "Magia,Entretenimiento,Show",
+      "stream_url": "https://www.youtube.com/watch?v=Zi_XLOBDo_Y"
+    }
+  }
+]

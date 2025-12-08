@@ -27,6 +27,8 @@ urlpatterns = [
     # Incloure totes les URLs de l'app users amb el prefix 'users/'
     path('users/', include('users.urls')),
     
+    path('events/', include('events.urls')),
+    
     # URL per a la pàgina principal (arrel del lloc)
     path('', views.home_view, name='home'),
 ]
