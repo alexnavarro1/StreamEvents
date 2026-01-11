@@ -1,0 +1,32 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <h5 class="mb-0">Xat en Directe</h5>
+        <span class="badge bg-secondary" id="message-count">0</span>
+    </div>
+    <div id="chat-messages" class="chat-messages">
+        <p class="text-center mt-3 text-muted">Carregant missatges...</p>
+    </div>
+
+    {% if user.is_authenticated and event.status == 'live' %}
+    <form id="chat-form" class="chat-form">
+        {% csrf_token %}
+        {{ chat_form.message }}
+        <button type="submit" class="btn btn-primary d-flex align-items-center gap-2">
+            <span>Enviar</span> <i class="fa fa-paper-plane"></i>
+        </button>
+    </form>
+    <div id="chat-errors" class="small text-danger"></div>
+    {% else %}
+    <div class="p-3 text-center text-muted border-top">
+        {% if not user.is_authenticated %}
+        <p class="mb-0">Inicia sessió per participar</p>
+        {% else %}
+        <p class="mb-0">El xat només està disponible durant l'esdeveniment</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    const eventId = "{{ event.id }}";
+</script>

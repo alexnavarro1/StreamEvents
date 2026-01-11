@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'chat/css/chat.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="row">
-    <!-- Main Content: Video/Image Primary -->
     <div class="col-lg-8">
         <div class="card shadow-sm mb-4">
             <div class="card-body p-0">
                 {% if event.get_stream_embed_url %}
                 <div class="ratio ratio-16x9">
-                    <iframe src="{{ event.get_stream_embed_url }}" title="{{ event.title }}" allowfullscreen></iframe>
+                    <iframe src="{{ event.get_stream_embed_url }}" title="{{ event.title }}" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
                 </div>
                 {% elif event.thumbnail %}
                 <img src="{{ event.thumbnail.url }}" class="img-fluid w-100 rounded-top" alt="{{ event.title }}"
@@ -67,8 +74,13 @@
         </div>
     </div>
 
-    <!-- Sidebar: Details -->
+    <!-- Sidebar: Chat & Details -->
     <div class="col-lg-4">
+        <!-- CHAT -->
+        <div class="mb-4">
+            {% include 'chat/includes/chat_box.html' %}
+        </div>
+
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-light fw-bold">Detalls de l'Esdeveniment</div>
             <ul class="list-group list-group-flush">
@@ -104,4 +116,8 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'chat/js/chat.js' %}"></script>
 {% endblock %}

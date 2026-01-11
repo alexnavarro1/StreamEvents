@@ -46,9 +46,12 @@ def event_list_view(request):
     }
     return render(request, 'events/event_list.html', context)
 
+from chat.forms import ChatMessageForm
+
 def event_detail_view(request, pk):
     event = get_object_or_404(Event, pk=pk)
-    return render(request,'events/event_detail.html',{'event':event})
+    chat_form = ChatMessageForm()
+    return render(request,'events/event_detail.html',{'event':event, 'chat_form': chat_form})
 
 @login_required
 def event_create_view(request):
