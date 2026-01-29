@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'users',
     'events',
     'chat',
+    'semantic_search',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +83,7 @@ DATABASES = {
       'default': {
         'ENGINE': 'djongo',
         'NAME': 'streamevents_db',
-        'ENFORCE_SCHEMA': True,
+        'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': 'mongodb://localhost:27017'
         }
@@ -135,7 +136,7 @@ LOGOUT_REDIRECT_URL = 'login'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 from django.contrib.messages import constants as messages  
 MESSAGE_TAGS = {  

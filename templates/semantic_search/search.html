@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <h2 class="mb-4 text-center">Cerca Semàntica d'Esdeveniments</h2>
+
+      <div class="card p-4 shadow-sm mb-5">
+        <form method="get" action="" class="row g-3 align-items-center">
+          <div class="col-md-8">
+            <label for="q" class="visually-hidden">Cerca</label>
+            <input type="text" class="form-control form-control-lg" id="q" name="q" value="{{ query }}"
+              placeholder="Ex: concert de jazz aquest cap de setmana" required>
+          </div>
+          <div class="col-md-2">
+            <div class="form-check pt-2">
+              {% if only_future %}
+              <input class="form-check-input" type="checkbox" name="future" value="0" id="futureCheck" checked>
+              {% else %}
+              <input class="form-check-input" type="checkbox" name="future" value="0" id="futureCheck">
+              {% endif %}
+              <label class="form-check-label" for="futureCheck">
+                Només futurs
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Cercar</button>
+          </div>
+        </form>
+      </div>
+
+      {% if query %}
+
+
+      <h3 class="mb-3">Resultats</h3>
+      {% if results %}
+      <div class="list-group">
+        {% for event, score in results %}
+        <a href="{{ event.get_absolute_url }}"
+          class="list-group-item list-group-item-action flex-column align-items-start mb-3 border rounded shadow-sm">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1 text-primary">{{ event.title }}</h5>
+            <small class="text-muted"><span class="badge bg-info text-dark">{{ score|floatformat:3 }}
+                similarity</span></small>
+          </div>
+          <p class="mb-1">{{ event.description|truncatewords:30 }}</p>
+          <small class="text-muted">
+            {{ event.scheduled_date|date:"d M Y H:i" }} |
+            {{ event.get_category_display }}
+          </small>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-warning" role="alert">
+        No s'han trobat esdeveniments que coincideixin semànticament amb la teva cerca. Prova d'expressar-ho d'una altra
+        manera.
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

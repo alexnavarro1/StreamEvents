@@ -29,6 +29,7 @@ urlpatterns = [
     
     path('events/', include('events.urls')),
     path('chat/', include('chat.urls')),
+    path('', include('semantic_search.urls')),
     
     # URL per a la pàgina principal (arrel del lloc)
     path('', views.home_view, name='home'),

@@ -134,6 +134,11 @@ class Event(models.Model):
         # Altres casos: retornar l'URL original
         return self.stream_url
 
+    # Semantic Search Fields
+    embedding = models.JSONField(blank=True, null=True)  # llista de floats
+    embedding_model = models.CharField(max_length=200, blank=True, null=True)
+    embedding_updated_at = models.DateTimeField(blank=True, null=True)
+
     class Meta:
         """
         Opcions metadades del model.
