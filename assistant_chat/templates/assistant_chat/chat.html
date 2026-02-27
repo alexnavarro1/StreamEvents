@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block title %}Assistent d'esdeveniments{% endblock %}
+
+{% block extra_css %}
+<style>
+    .chat-container {
+        max-width: 800px;
+        margin: 20px auto;
+    }
+
+    .message-box {
+        min-height: 100px;
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        border-radius: 5px;
+        background: #f8f9fa;
+        white-space: pre-wrap;
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+        line-height: 1.5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <h2 class="mb-4">
+        <i class="fas fa-robot text-primary"></i> Assistent d'esdeveniments
+        <span class="badge bg-secondary fs-6 align-middle">Beta</span>
+    </h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="mb-3 form-check">
+                <input class="form-check-input" id="onlyFuture" type="checkbox" checked>
+                <label class="form-check-label" for="onlyFuture">
+                    Només cercar esdeveniments futurs
+                </label>
+            </div>
+
+            <div class="input-group">
+                <input id="msg" class="form-control form-control-lg"
+                    placeholder="Ex: vull un concert de jazz aquest cap de setmana" autocomplete="off">
+                <button id="send" class="btn btn-primary px-4"><i class="fas fa-paper-plane"></i> Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h5 class="text-secondary mb-3">Resposta de l'Assistent:</h5>
+    </div>
+    <div id="answer" class="message-box text-muted shadow-sm">Esperant la teva consulta... pots provar a demanar consell
+        sobre els propers esdeveniments.</div>
+
+    <div id="cards"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    async function send() {
+        const message = document.getElementById("msg").value.trim();
+        if (!message) return;
+
+        const onlyFuture = document.getElementById("onlyFuture").checked;
+        const answerDiv = document.getElementById("answer");
+        const cardsDiv = document.getElementById("cards");
+
+        answerDiv.classList.remove("text-muted");
+        answerDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Pensant...';
+        cardsDiv.innerHTML = "";
+
+        try {
+            const response = await fetch("{% url 'assistant_chat:api_chat' %}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message, only_future: onlyFuture })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            answerDiv.innerText = "";
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder("utf-8");
+
+            let buffer = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+
+                let boundary = buffer.indexOf("\n\n");
+                while (boundary !== -1) {
+                    let chunkStr = buffer.slice(0, boundary).trim();
+                    buffer = buffer.slice(boundary + 2);
+
+                    if (chunkStr.startsWith("data: ")) {
+                        try {
+                            let data = JSON.parse(chunkStr.slice(6));
+
+                            if (data.type === "metadata") {
+                                if (data.events && data.events.length > 0) {
+                                    const h5 = document.createElement("h5");
+                                    h5.className = "text-secondary mt-4 mb-3";
+                                    h5.innerText = "Esdeveniments recomanats del context:";
+                                    cardsDiv.appendChild(h5);
+
+                                    const div = document.createElement("div");
+                                    div.className = "list-group shadow-sm mb-4";
+                                    data.events.forEach(ev => {
+                                        const a = document.createElement("a");
+                                        a.href = ev.url;
+                                        a.className = "list-group-item list-group-item-action";
+                                        a.innerHTML = `<div class="d-flex w-100 justify-content-between">
+                                          <h6 class="mb-1 text-primary">${ev.title}</h6>
+                                          <small class="text-muted">${ev.scheduled_date ? ev.scheduled_date.split('T')[0] : 'Sense data'}</small>
+                                        </div>
+                                        <p class="mb-1 text-dark truncate-text">${ev.category}</p>
+                                        <small class="text-muted"><i class="fas fa-star text-warning"></i> Relevància: ${ev.score}</small>`;
+                                        div.appendChild(a);
+                                    });
+                                    cardsDiv.appendChild(div);
+                                } else {
+                                    const p = document.createElement("p");
+                                    p.className = "text-muted fst-italic mt-3";
+                                    p.innerText = "No s'han trobat esdeveniments per a aquesta consulta.";
+                                    cardsDiv.appendChild(p);
+                                }
+                            } else if (data.type === "text") {
+                                answerDiv.innerText += data.text;
+                            }
+                        } catch (e) {
+                            console.error("Error parsing JSON:", e, chunkStr);
+                        }
+                    }
+                    boundary = buffer.indexOf("\n\n");
+                }
+            }
+        } catch (err) {
+            answerDiv.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> S\'ha produït un error de connexió. Assegura\'t que Ollama està en execució o torna a provar.</span>';
+            console.error(err);
+        }
+    }
+
+    document.getElementById("send").addEventListener("click", send);
+    document.getElementById("msg").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") send();
+    });
+</script>
+{% endblock %}
