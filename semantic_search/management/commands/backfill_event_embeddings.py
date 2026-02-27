@@ -22,12 +22,24 @@ class Command(BaseCommand):
         if limit and limit > 0:
             qs = qs[:limit]
 
+        CATEGORY_MAP = {
+            'sports': 'Esports, Futbol, Baloncesto, Basquet, Tenis, Competición, Partido',
+            'gaming': 'Videojuegos, eSports, Twitch, YouTube, Streamer, Torneo de Videojuegos, Fortnite, CS:GO, LoL',
+            'music': 'Concierto, Canción, Álbum, Banda, Artista, En vivo, Música',
+            'talk': 'Podcast, Entrevista, Charla, Conferencia, Mesa redonda, Debate',
+            'education': 'Curso, Clase, Taller, Aprender, Tutorial, Guía',
+            'entertainment': 'Comedia, Show, Espectáculo, Magia, Entretenimiento',
+            'technology': 'Programación, Software, Hardware, IA, Inteligencia Artificial, Tech',
+            'art': 'Pintura, Dibujo, Diseño, Creatividad, Arte',
+        }
+
         total = 0
         for e in qs:
             text = " | ".join([
                 (e.title or "").strip(),
                 (e.description or "").strip(),
                 (e.category or "").strip(),
+                CATEGORY_MAP.get(e.category, ""),
                 (e.tags or "").strip(),
             ]).strip()
 
